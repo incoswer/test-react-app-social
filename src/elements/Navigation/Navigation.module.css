@@ -1,0 +1,10 @@
+.navigation{
+  grid-area: n;
+  background-color: silver;
+  width: 100px;
+  height: 300px;
+  padding: 20px;
+}
+.active{
+	color:yellow;
+}

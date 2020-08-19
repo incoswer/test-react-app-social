@@ -1,0 +1,13 @@
+.content{
+  grid-area: d;
+  width: 100%;
+}
+.content img{
+	width: 100%;
+	height: 100px;
+
+}
+.fullContacts{
+    margin-left: 10px;
+    color: gray
+}

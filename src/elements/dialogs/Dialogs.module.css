@@ -1,0 +1,11 @@
+.dialogsItems{
+	background-color: gold;
+	float: left;
+	width: 200px;
+}
+
+.messages{
+	padding: 10px;
+	float: left;
+
+}
