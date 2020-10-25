@@ -1,27 +1,27 @@
 import {createSelector} from "reselect";
 
-const ugetUsersCelector = (state)=>{
+const ugetUsersCelector = (state:any)=>{
     return state.usersPage.users
 }
 
 export const ugetUsers = createSelector(ugetUsersCelector,(users)=>{
-    return users.filter(u=>true)
+    return users.filter((u:any)=>true)
 })
-export const getPageSize = (state)=>{
+export const getPageSize = (state:any)=>{
     return state.usersPage.pageSize
 }
-export const getTotalUsersCount = (state)=>{
+export const getTotalUsersCount = (state:any)=>{
     return state.usersPage.totalUsersCount
 }
-export const getCurrentPage = (state)=>{
+export const getCurrentPage = (state:any)=>{
     return state.usersPage.currentPage
 }
-export const getIsFething = (state)=>{
+export const getIsFething = (state:any)=>{
     return state.usersPage.isFetching
 }
-export const getStateTrue = (state)=>{
+export const getStateTrue = (state:any)=>{
     return state.usersPage.StateTrue
 }
-export const getFollowingInProgress = (state)=>{
+export const getFollowingInProgress = (state:any)=>{
     return state.usersPage.followingInProgress
 }

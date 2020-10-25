@@ -2,12 +2,13 @@ import React from "react";
 import css from "./users.module.css";
 import Imsage from "../../images/smalluserimage.jpg";
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
-import {usersAPI} from "../../api/api";
 import Paginator from "./Paginator";
 
-const Users = (props) => {
+type propsType={
+    users:
+}
 
+const Users = (props) => {
     return <div>
         <Paginator totalUsersCount={props.totalUsersCount} pageSize={props.pageSize} currentPage={props.currentPage}
                    onPageChanged={props.onPageChanged}
@@ -35,15 +36,6 @@ const Users = (props) => {
                     <div>
                      {user.status}
                      </div>
-                </span>
-
-            <span>
-                    <div>
-
-                    </div>
-                     <div>
-
-                    </div>
                 </span>
         </div>)}
     </div>
