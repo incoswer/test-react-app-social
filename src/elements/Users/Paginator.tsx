@@ -4,7 +4,7 @@ import css from "./users.module.css";
 type propsType={
     totalUsersCount:number
     pageSize:number
-    portionSize?:number
+    portionSize:number
     onPageChanged:(pageNumber:number)=>void
     currentPage:number
 }

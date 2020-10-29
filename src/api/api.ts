@@ -1,10 +1,9 @@
-import * as axios from "axios";
-
-const base ='https://social-network.samuraijs.com/api/1.0/';
+import axios from "axios";
+import {profileType} from "../types/types";
 
 const instance = axios.create({
     withCredentials: true,
-    baseURL:base,
+    baseURL:'https://social-network.samuraijs.com/api/1.0/',
     headers:{
         'API-KEY':'10ee76eb-41b0-4764-947b-2a0f9316a198'
     }
@@ -17,31 +16,31 @@ export const usersAPI = {
             return responce.data;
         });
     },
-    follow(userId){
+    follow(userId:number){
         return instance.post(`follow/${userId}`)
     },
-    unFollow(userId){
+    unFollow(userId:number){
         return instance.delete(`follow/${userId}`)
     },
-    getProfile(userId){
+    getProfile(userId:number){
         console.log('Obsolete method. Please use profileAPI object');
         return profileAPI.getProfile(userId);
     }
 }
 
 export const profileAPI = {
-    getProfile(userId){
+    getProfile(userId:number){
         return instance.get(`profile/` + userId)
     },
-    getStatus(userId){
+    getStatus(userId:number){
         return instance.get(`profile/status/` + userId)
     },
-    updateStatus(status){
+    updateStatus(status:string){
         return instance.put(`profile/status`,{
             status:status
         })
     },
-    savePhoto(file){
+    savePhoto(file:any){
         const formData = new FormData()
         formData.append('image',file)
         return instance.put(`profile/photo`,formData, {
@@ -50,7 +49,7 @@ export const profileAPI = {
             }
         })
     },
-    saveProfile(profile){
+    saveProfile(profile:profileType){
         return instance.put(`profile`,profile)
     }
 
@@ -60,7 +59,7 @@ export const authAPI ={
     me(){
         return instance.get(`auth/me`)
     },
-    login(email,password,rememberMe = false,captcha=null){
+    login(email:string,password:string,rememberMe = false,captcha:null | string=null){
         return instance.post(`auth/login`,{email,password,rememberMe,captcha})
     },
     logout(){
