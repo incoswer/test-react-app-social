@@ -49,6 +49,7 @@ class UsersApiComponent extends React.Component<propsType> {
     }
 
     componentDidMount() {
+        document.title='Users'
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 

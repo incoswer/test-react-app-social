@@ -8,6 +8,8 @@ const instance = axios.create({
         'API-KEY':'10ee76eb-41b0-4764-947b-2a0f9316a198'
     }
 })
+
+
 export const usersAPI = {
     getUsers (currentPage =1,pageSize = 10)  {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`, {
@@ -52,15 +54,40 @@ export const profileAPI = {
     saveProfile(profile:profileType){
         return instance.put(`profile`,profile)
     }
-
 }
 
+export enum resultCodeEnum{
+    Success=0,
+    Error=1,
+}
+
+export enum resultCodeCaptcha{
+    CaptchaIsRequired=10
+}
+
+type meResponceType={
+    data:{
+        id:number,
+        email:string,
+        login:string
+    },
+    resultCode:resultCodeEnum,
+    messages:Array<string>
+}
+
+type loginResponceType={
+    resultCode:resultCodeEnum | resultCodeCaptcha,
+    messages:Array<any> | string,
+    data:{
+        userId:number
+    }
+}
 export const authAPI ={
     me(){
-        return instance.get(`auth/me`)
+        return instance.get<meResponceType>(`auth/me`).then(responce=>responce.data)
     },
     login(email:string,password:string,rememberMe = false,captcha:null | string=null){
-        return instance.post(`auth/login`,{email,password,rememberMe,captcha})
+        return instance.post<loginResponceType>(`auth/login`).then(res=>res.data)
     },
     logout(){
         return instance.delete(`auth/login`)

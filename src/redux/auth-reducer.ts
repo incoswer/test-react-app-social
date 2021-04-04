@@ -1,4 +1,4 @@
-import {authAPI, securityAPI} from "../api/api";
+import {authAPI, resultCodeCaptcha, resultCodeEnum, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 const SET_UDER_DATA = 'my-app/auth/SET_UDER_DATA';
@@ -15,7 +15,7 @@ let initialState = {
     userId: null as number | null,
     email: null as string | null,
     login: null as string | null,
-    isAuth: false as boolean | null,
+    isAuth: false as boolean,
     captchaUrl:null as string | null
 };
 
@@ -23,7 +23,7 @@ export type initialStateType = typeof initialState
 
 const authReducer = (state = initialState, action:any):initialStateType => {
     switch (action.type) {
-        case SET_UDER_DATA:
+            case SET_UDER_DATA:
             return {
                 ...state,
                 ...action.payload,
@@ -65,11 +65,12 @@ export const getCaptchaUrlSuccess = (captchaUrl:string):getCaptchaUrlSuccessType
 });
 
 
+
 export const getAuthUserData = () => async (dispatch:any) => {
     let response = await authAPI.me()
 
-    if (response.data.resultCode === 0) {
-        let {id, login, email} = response.data.data;
+    if (response.resultCode === resultCodeEnum.Success) {
+        let {id, login, email} = response.data;
         dispatch(setAuthUserData(id, login, email, true));
     }
 }
@@ -77,13 +78,13 @@ export const getAuthUserData = () => async (dispatch:any) => {
 export const login = (email:string, password:string, rememberMe:boolean,captcha:string) => async (dispatch:any) => {
     let response = await authAPI.login(email, password, rememberMe,captcha)
 
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === resultCodeEnum.Success) {
         dispatch(getAuthUserData());
     } else {
-        if(response.data.resultCode === 10){
+        if(response.resultCode === resultCodeCaptcha.CaptchaIsRequired){
             dispatch(getCaptchaUrl())
         }
-        let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
+        let message = response.messages.length > 0 ? response.messages[0] : 'Some error';
         dispatch(stopSubmit('login', {_error: message}));
     }
 
@@ -98,7 +99,7 @@ export const getCaptchaUrl = () => async (dispatch:any) => {
 export const logout = () => async (dispatch:any) => {
     let response = await authAPI.logout()
 
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === resultCodeEnum.Success) {
         dispatch(setAuthUserData(null, null, null, false));
     }
 

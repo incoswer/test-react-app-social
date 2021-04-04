@@ -18,6 +18,7 @@ class ProfileContainer extends React.Component {
         this.props.getStatus(userId)
     }
     componentDidMount() {
+        document.title='Profile'
         this.refreshProfile()
     }
     componentDidUpdate(prevProps, prevState, snapshot) {

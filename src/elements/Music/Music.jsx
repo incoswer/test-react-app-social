@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Music = () =>{
+	useEffect(()=>{
+		document.title='Music'
+	})
 	return (
 		<div>
 			this section for music

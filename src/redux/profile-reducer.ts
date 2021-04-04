@@ -1,4 +1,4 @@
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI, resultCodeEnum, usersAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {photosType, postType, profileType} from "../types/types";
 
@@ -99,20 +99,20 @@ export const getStatus = (userId:number) => async (dispatch:any) => {
 
 export const updateStatus = (status:string) => async (dispatch:any) => {
     let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === resultCodeEnum.Success) {
         dispatch(setStatus(status));
     }
 }
 export const savePhoto = (file:any) => async (dispatch:any) => {
     let response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === resultCodeEnum.Success) {
         dispatch(savePhotoSuccess(response.data.data.photos));
     }
 }
 export const saveProfile = (profile:any) => async (dispatch:any,getState:any) => {
     const userId= getState().auth.userId
     const response = await profileAPI.saveProfile(profile)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === resultCodeEnum.Success) {
         dispatch(getUserProfile(userId));
     }
     else{

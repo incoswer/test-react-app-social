@@ -6,8 +6,11 @@ import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import css from '../common/FormsControls/FormsControls.module.css'
+import { appStateType } from "../../redux/redux-store";
 
-const LoginForm =({handleSubmit,error,captchaUrl}) =>{
+
+
+const LoginForm =({handleSubmit,error,captchaUrl}:any) =>{
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -32,10 +35,16 @@ const LoginForm =({handleSubmit,error,captchaUrl}) =>{
         </form>)
 }
 
-const LoginReduxForm = reduxForm({ form:'login'})(LoginForm)
+const LoginReduxForm:any = reduxForm({ form:'login'})(LoginForm)
 
-const Login = (props) =>{
-    const onSubmit = (formData) =>{
+type mapStateToPropsType={
+    captchaUrl:string | null,
+    isAuth:boolean,
+}
+
+
+const Login:React.FC<mapStateToPropsType> = (props:any) =>{
+    const onSubmit = (formData:any) =>{
         props.login(formData.email,formData.password,formData.rememberMe,formData.captcha)
     }
     if(props.isAuth){
@@ -48,7 +57,7 @@ const Login = (props) =>{
         </div>
     }
 }
-const mapStateToProps = (state)=>({
+const mapStateToProps = (state:appStateType):mapStateToPropsType=>({
     captchaUrl:state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })

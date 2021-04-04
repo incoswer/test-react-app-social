@@ -1,4 +1,4 @@
-import {usersAPI} from "../api/api";
+import {resultCodeEnum, usersAPI} from "../api/api";
 import {updateObjectArray} from "../utils/objects-helpers";
 import {userType} from "../types/types";
 import {appStateType} from "./redux-store";
@@ -134,7 +134,7 @@ export const requestUsers = (currentPage:number, pageSize:number):thunkType => {
 const _followUnfollowFlow = async (dispatch:dispatchType,userId:number,apiMethod:any,actionCreator:(userId:number)=>followSuccessType | unfollowSuccessType)=>{
     dispatch(toogleFollowingProgress(true,userId))
     let response = await apiMethod(userId)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === resultCodeEnum.Success) {
         dispatch(actionCreator(userId));
     }
     dispatch(toogleFollowingProgress(false, userId));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import css from './Dialogs.module.css';
 import {NavLink, Redirect} from 'react-router-dom';
 import Message from './Message/Message';
@@ -10,7 +10,6 @@ import {withAuthRedirect} from "../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 let mapStateToProps = (state) => {
-
     return {
         dialogsItems: state.MessagePage,
         isAuth: state.auth.isAuth,

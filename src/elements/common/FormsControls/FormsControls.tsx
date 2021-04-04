@@ -1,7 +1,7 @@
 import React from "react";
 import css from './FormsControls.module.css';
 
-export const FormControl = ({input, meta, child,element, props}) => {
+export const FormControl = ({input, meta, child,element, props}:any) => {
     const hasError = meta.touched && meta.error;
     return (
         <div className={css.formControl + " " + (hasError ? css.error: '')}>
@@ -15,7 +15,7 @@ export const FormControl = ({input, meta, child,element, props}) => {
         </div>)
 }
 
-export const Textarea = ({input, meta, props}) => {
+export const Textarea = ({input, meta, props}:any) => {
     const hasError = meta.touched && meta.error;
     return (
         <div className={css.formControl + " " + (hasError ? css.error: '')}>
@@ -28,7 +28,7 @@ export const Textarea = ({input, meta, props}) => {
             </span>}
         </div>)
 }
-export const Input = ({input, meta, ...props}) => {
+export const Input = ({input, meta, ...props}:any) => {
     const hasError = meta.touched && meta.error;
     return (
         <div className={css.formControl + " " + (hasError ? css.error: '')}>
